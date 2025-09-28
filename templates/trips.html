@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}Планувальник поїздок - Car Manager{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Планувальник поїздок</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTripModal">
+            <i class="fas fa-plus me-2"></i>Планувати поїздку
+        </button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Заплановані поїздки</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="tripsTable">
+                        <thead>
+                            <tr>
+                                <th>Дата</th>
+                                <th>Маршрут</th>
+                                <th>Відстань</th>
+                                <th>Розрахункова вартість</th>
+                                <th>Авто</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Dynamic content will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Калькулятор поїздки</h6>
+            </div>
+            <div class="card-body">
+                <form id="tripCalculator">
+                    <div class="mb-3">
+                        <label for="tripDistance" class="form-label">Відстань (км)</label>
+                        <input type="number" class="form-control" id="tripDistance" step="0.1">
+                    </div>
+                    <div class="mb-3">
+                        <label for="tripFuelPrice" class="form-label">Ціна палива (₴/л)</label>
+                        <input type="number" class="form-control" id="tripFuelPrice" step="0.01">
+                    </div>
+                    <div class="mb-3">
+                        <label for="tripFuelConsumption" class="form-label">Витрата палива (л/100км)</label>
+                        <input type="number" class="form-control" id="tripFuelConsumption" step="0.1">
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="calculateTripCost()">Розрахувати</button>
+                    <div class="mt-3">
+                        <strong>Розрахункова вартість: <span id="tripCost">0 ₴</span></strong>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/trips.js') }}"></script>
+{% endblock %}

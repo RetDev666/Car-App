@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Manager - Управління автомобілем</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-primary" href="#">
+                <i class="fas fa-car me-2"></i>Car Manager
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#dashboard">Головна</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#vehicles">Мої авто</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#expenses">Витрати</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#maintenance">ТО</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#services">Сервіси</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#trips">Поїздки</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 col-lg-2 bg-light sidebar">
+                <div class="position-sticky pt-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#dashboard">
+                                <i class="fas fa-tachometer-alt me-2"></i>Панель управління
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#vehicles">
+                                <i class="fas fa-car me-2"></i>Мої авто
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#fuel-log">
+                                <i class="fas fa-gas-pump me-2"></i>Журнал палива
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#maintenance">
+                                <i class="fas fa-wrench me-2"></i>Технічне обслуговування
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#expenses">
+                                <i class="fas fa-chart-line me-2"></i>Витрати
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#services">
+                                <i class="fas fa-map-marker-alt me-2"></i>Автосервіси
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#trips">
+                                <i class="fas fa-route me-2"></i>Планувальник поїздок
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#calculator">
+                                <i class="fas fa-calculator me-2"></i>Калькулятор витрат
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="col-md-9 col-lg-10 main-content">
+                <!-- Dashboard Section -->
+                <div id="dashboard" class="content-section">
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2">Панель управління</h1>
+                        <div class="btn-toolbar mb-2 mb-md-0">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addVehicleModal">
+                                <i class="fas fa-plus me-2"></i>Додати авто
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Stats Cards -->
+                    <div class="row mb-4">
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Загальний пробіг</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="totalMileage">0 км</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-road fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                Витрати цього місяця</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="monthlyExpenses">0 ₴</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-info shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                                Середня витрата палива</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="avgFuelConsumption">0 л/100км</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-tint fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                Нагадування</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="remindersCount">0</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-bell fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activities -->
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Останні витрати</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="recentExpensesTable">
+                                            <thead>
+                                                <tr>
+                                                    <th>Дата</th>
+                                                    <th>Тип</th>
+                                                    <th>Сума</th>
+                                                    <th>Авто</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Dynamic content will be loaded here -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Нагадування</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div id="remindersList">
+                                        <!-- Dynamic content will be loaded here -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vehicles Section -->
+                <div id="vehicles" class="content-section" style="display: none;">
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2">Мої авто</h1>
+                        <div class="btn-toolbar mb-2 mb-md-0">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addVehicleModal">
+                                <i class="fas fa-plus me-2"></i>Додати авто
+                            </button>
+                        </div>
+                    </div>
+                    <div id="vehiclesList" class="row">
+                        <!-- Vehicles will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Fuel Log Section -->
+                <div id="fuel-log" class="content-section" style="display: none;">
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2">Журнал палива</h1>
+                        <div class="btn-toolbar mb-2 mb-md-0">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addFuelLogModal">
+                                <i class="fas fa-plus me-2"></i>Додати заправку
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card shadow mb-4">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="fuelLogTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Дата</th>
+                                            <th>Авто</th>
+                                            <th>Кількість (л)</th>
+                                            <th>Ціна за літр</th>
+                                            <th>Загальна сума</th>
+                                            <th>Пробіг</th>
+                                            <th>Витрата л/100км</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Dynamic content will be loaded here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Maintenance Section -->
+                <div id="maintenance" class="content-section" style="display: none;">
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2">Технічне обслуговування</h1>
+                        <div class="btn-toolbar mb-2 mb-md-0">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addMaintenanceModal">
+                                <i class="fas fa-plus me-2"></i>Додати ТО
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Історія ТО</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="maintenanceTable">
+                                            <thead>
+                                                <tr>
+                                                    <th>Дата</th>
+                                                    <th>Авто</th>
+                                                    <th>Тип робіт</th>
+                                                    <th>Пробіг</th>
+                                                    <th>Вартість</th>
+                                                    <th>Наступне ТО</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Dynamic content will be loaded here -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Нагадування ТО</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div id="maintenanceReminders">
+                                        <!-- Dynamic content will be loaded here -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expenses Section -->
+                <div id="expenses" class="content-section" style="display: none;">
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2">Витрати</h1>
+                        <div class="btn-toolbar mb-2 mb-md-0">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addExpenseModal">
+                                <i class="fas fa-plus me-2"></i>Додати витрату
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Всі витрати</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="expensesTable">
+                                            <thead>
+                                                <tr>
+                                                    <th>Дата</th>
+                                                    <th>Тип</th>
+                                                    <th>Опис</th>
+                                                    <th>Сума</th>
+                                                    <th>Авто</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Dynamic content will be loaded here -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Статистика витрат</h6>
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="expensesChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Services Section -->
+                <div id="services" class="content-section" style="display: none;">
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2">Автосервіси</h1>
+                        <div class="btn-toolbar mb-2 mb-md-0">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addServiceModal">
+                                <i class="fas fa-plus me-2"></i>Додати сервіс
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row" id="servicesList">
+                        <!-- Services will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Trips Section -->
+                <div id="trips" class="content-section" style="display: none;">
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2">Планувальник поїздок</h1>
+                        <div class="btn-toolbar mb-2 mb-md-0">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTripModal">
+                                <i class="fas fa-plus me-2"></i>Планувати поїздку
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Заплановані поїздки</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="tripsTable">
+                                            <thead>
+                                                <tr>
+                                                    <th>Дата</th>
+                                                    <th>Маршрут</th>
+                                                    <th>Відстань</th>
+                                                    <th>Розрахункова вартість</th>
+                                                    <th>Авто</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Dynamic content will be loaded here -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Калькулятор поїздки</h6>
+                                </div>
+                                <div class="card-body">
+                                    <form id="tripCalculator">
+                                        <div class="mb-3">
+                                            <label for="tripDistance" class="form-label">Відстань (км)</label>
+                                            <input type="number" class="form-control" id="tripDistance" step="0.1">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="tripFuelPrice" class="form-label">Ціна палива (₴/л)</label>
+                                            <input type="number" class="form-control" id="tripFuelPrice" step="0.01">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="tripFuelConsumption" class="form-label">Витрата палива (л/100км)</label>
+                                            <input type="number" class="form-control" id="tripFuelConsumption" step="0.1">
+                                        </div>
+                                        <button type="button" class="btn btn-primary" onclick="calculateTripCost()">Розрахувати</button>
+                                        <div class="mt-3">
+                                            <strong>Розрахункова вартість: <span id="tripCost">0 ₴</span></strong>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Calculator Section -->
+                <div id="calculator" class="content-section" style="display: none;">
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2">Калькулятор вартості утримання</h1>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Розрахунок витрат</h6>
+                                </div>
+                                <div class="card-body">
+                                    <form id="costCalculator">
+                                        <div class="mb-3">
+                                            <label for="calcMileage" class="form-label">Пробіг за рік (км)</label>
+                                            <input type="number" class="form-control" id="calcMileage" value="15000">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="calcFuelConsumption" class="form-label">Витрата палива (л/100км)</label>
+                                            <input type="number" class="form-control" id="calcFuelConsumption" value="8" step="0.1">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="calcFuelPrice" class="form-label">Ціна палива (₴/л)</label>
+                                            <input type="number" class="form-control" id="calcFuelPrice" value="50" step="0.01">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="calcInsurance" class="form-label">Страховка за рік (₴)</label>
+                                            <input type="number" class="form-control" id="calcInsurance" value="5000">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="calcMaintenance" class="form-label">ТО за рік (₴)</label>
+                                            <input type="number" class="form-control" id="calcMaintenance" value="3000">
+                                        </div>
+                                        <button type="button" class="btn btn-primary" onclick="calculateTotalCost()">Розрахувати</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Результати розрахунку</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div id="costResults">
+                                        <div class="row mb-2">
+                                            <div class="col-6">Паливо:</div>
+                                            <div class="col-6 text-end" id="fuelCost">0 ₴</div>
+                                        </div>
+                                        <div class="row mb-2">
+                                            <div class="col-6">Страховка:</div>
+                                            <div class="col-6 text-end" id="insuranceCost">0 ₴</div>
+                                        </div>
+                                        <div class="row mb-2">
+                                            <div class="col-6">ТО:</div>
+                                            <div class="col-6 text-end" id="maintenanceCost">0 ₴</div>
+                                        </div>
+                                        <hr>
+                                        <div class="row mb-2">
+                                            <div class="col-6"><strong>Загалом за рік:</strong></div>
+                                            <div class="col-6 text-end"><strong id="totalCost">0 ₴</strong></div>
+                                        </div>
+                                        <div class="row mb-2">
+                                            <div class="col-6">За місяць:</div>
+                                            <div class="col-6 text-end" id="monthlyCost">0 ₴</div>
+                                        </div>
+                                        <div class="row mb-2">
+                                            <div class="col-6">За км:</div>
+                                            <div class="col-6 text-end" id="perKmCost">0 ₴</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Vehicle Modal -->
+    <div class="modal fade" id="addVehicleModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Додати нове авто</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addVehicleForm">
+                        <div class="mb-3">
+                            <label for="vehicleBrand" class="form-label">Марка</label>
+                            <input type="text" class="form-control" id="vehicleBrand" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="vehicleModel" class="form-label">Модель</label>
+                            <input type="text" class="form-control" id="vehicleModel" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="vehicleYear" class="form-label">Рік випуску</label>
+                            <input type="number" class="form-control" id="vehicleYear" min="1900" max="2024" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="vehiclePlate" class="form-label">Номерний знак</label>
+                            <input type="text" class="form-control" id="vehiclePlate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="vehicleMileage" class="form-label">Поточний пробіг (км)</label>
+                            <input type="number" class="form-control" id="vehicleMileage" min="0" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Скасувати</button>
+                    <button type="button" class="btn btn-primary" onclick="addVehicle()">Додати</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Fuel Log Modal -->
+    <div class="modal fade" id="addFuelLogModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Додати заправку</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addFuelLogForm">
+                        <div class="mb-3">
+                            <label for="fuelVehicle" class="form-label">Авто</label>
+                            <select class="form-control" id="fuelVehicle" required>
+                                <option value="">Оберіть авто</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="fuelDate" class="form-label">Дата</label>
+                            <input type="date" class="form-control" id="fuelDate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="fuelAmount" class="form-label">Кількість палива (л)</label>
+                            <input type="number" class="form-control" id="fuelAmount" step="0.01" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="fuelPrice" class="form-label">Ціна за літр (₴)</label>
+                            <input type="number" class="form-control" id="fuelPrice" step="0.01" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="fuelMileage" class="form-label">Пробіг (км)</label>
+                            <input type="number" class="form-control" id="fuelMileage" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Скасувати</button>
+                    <button type="button" class="btn btn-primary" onclick="addFuelLog()">Додати</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Maintenance Modal -->
+    <div class="modal fade" id="addMaintenanceModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Додати ТО</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addMaintenanceForm">
+                        <div class="mb-3">
+                            <label for="maintenanceVehicle" class="form-label">Авто</label>
+                            <select class="form-control" id="maintenanceVehicle" required>
+                                <option value="">Оберіть авто</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="maintenanceDate" class="form-label">Дата</label>
+                            <input type="date" class="form-control" id="maintenanceDate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="maintenanceType" class="form-label">Тип робіт</label>
+                            <select class="form-control" id="maintenanceType" required>
+                                <option value="">Оберіть тип</option>
+                                <option value="oil_change">Заміна мастила</option>
+                                <option value="filter_change">Заміна фільтрів</option>
+                                <option value="brake_service">Обслуговування гальм</option>
+                                <option value="engine_service">Обслуговування двигуна</option>
+                                <option value="other">Інше</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="maintenanceMileage" class="form-label">Пробіг (км)</label>
+                            <input type="number" class="form-control" id="maintenanceMileage" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="maintenanceCost" class="form-label">Вартість (₴)</label>
+                            <input type="number" class="form-control" id="maintenanceCost" step="0.01" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="maintenanceDescription" class="form-label">Опис</label>
+                            <textarea class="form-control" id="maintenanceDescription" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Скасувати</button>
+                    <button type="button" class="btn btn-primary" onclick="addMaintenance()">Додати</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Expense Modal -->
+    <div class="modal fade" id="addExpenseModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Додати витрату</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addExpenseForm">
+                        <div class="mb-3">
+                            <label for="expenseVehicle" class="form-label">Авто</label>
+                            <select class="form-control" id="expenseVehicle" required>
+                                <option value="">Оберіть авто</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="expenseDate" class="form-label">Дата</label>
+                            <input type="date" class="form-control" id="expenseDate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="expenseType" class="form-label">Тип витрати</label>
+                            <select class="form-control" id="expenseType" required>
+                                <option value="">Оберіть тип</option>
+                                <option value="fuel">Паливо</option>
+                                <option value="maintenance">ТО</option>
+                                <option value="insurance">Страховка</option>
+                                <option value="repair">Ремонт</option>
+                                <option value="other">Інше</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="expenseDescription" class="form-label">Опис</label>
+                            <input type="text" class="form-control" id="expenseDescription" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="expenseAmount" class="form-label">Сума (₴)</label>
+                            <input type="number" class="form-control" id="expenseAmount" step="0.01" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Скасувати</button>
+                    <button type="button" class="btn btn-primary" onclick="addExpense()">Додати</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Service Modal -->
+    <div class="modal fade" id="addServiceModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Додати автосервіс</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addServiceForm">
+                        <div class="mb-3">
+                            <label for="serviceName" class="form-label">Назва сервісу</label>
+                            <input type="text" class="form-control" id="serviceName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="serviceAddress" class="form-label">Адреса</label>
+                            <input type="text" class="form-control" id="serviceAddress" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="servicePhone" class="form-label">Телефон</label>
+                            <input type="tel" class="form-control" id="servicePhone" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="serviceRating" class="form-label">Рейтинг (1-5)</label>
+                            <select class="form-control" id="serviceRating" required>
+                                <option value="1">1 зірка</option>
+                                <option value="2">2 зірки</option>
+                                <option value="3">3 зірки</option>
+                                <option value="4">4 зірки</option>
+                                <option value="5">5 зірок</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="serviceDescription" class="form-label">Опис послуг</label>
+                            <textarea class="form-control" id="serviceDescription" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Скасувати</button>
+                    <button type="button" class="btn btn-primary" onclick="addService()">Додати</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Trip Modal -->
+    <div class="modal fade" id="addTripModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Планувати поїздку</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addTripForm">
+                        <div class="mb-3">
+                            <label for="tripVehicle" class="form-label">Авто</label>
+                            <select class="form-control" id="tripVehicle" required>
+                                <option value="">Оберіть авто</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="tripDate" class="form-label">Дата поїздки</label>
+                            <input type="date" class="form-control" id="tripDate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="tripFrom" class="form-label">Звідки</label>
+                            <input type="text" class="form-control" id="tripFrom" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="tripTo" class="form-label">Куди</label>
+                            <input type="text" class="form-control" id="tripTo" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="tripDistance" class="form-label">Відстань (км)</label>
+                            <input type="number" class="form-control" id="tripDistance" step="0.1" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="tripFuelPrice" class="form-label">Ціна палива (₴/л)</label>
+                            <input type="number" class="form-control" id="tripFuelPrice" step="0.01" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Скасувати</button>
+                    <button type="button" class="btn btn-primary" onclick="addTrip()">Додати</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

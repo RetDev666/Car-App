@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Manager - Демо версія</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="static/css/main.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-primary" href="#">
+                <i class="fas fa-car me-2"></i>Car Manager
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#dashboard">Головна</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#vehicles">Мої авто</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#expenses">Витрати</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#maintenance">ТО</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#services">Сервіси</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#trips">Поїздки</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 col-lg-2 bg-light sidebar">
+                <div class="position-sticky pt-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#dashboard">
+                                <i class="fas fa-tachometer-alt me-2"></i>Панель управління
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#vehicles">
+                                <i class="fas fa-car me-2"></i>Мої авто
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#fuel-log">
+                                <i class="fas fa-gas-pump me-2"></i>Журнал палива
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#maintenance">
+                                <i class="fas fa-wrench me-2"></i>Технічне обслуговування
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#expenses">
+                                <i class="fas fa-chart-line me-2"></i>Витрати
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#services">
+                                <i class="fas fa-map-marker-alt me-2"></i>Автосервіси
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#trips">
+                                <i class="fas fa-route me-2"></i>Планувальник поїздок
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#calculator">
+                                <i class="fas fa-calculator me-2"></i>Калькулятор витрат
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="col-md-9 col-lg-10 main-content">
+                <div class="content-section">
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2">🚗 Car Manager - Демо версія</h1>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="alert alert-info">
+                                <h4 class="alert-heading">
+                                    <i class="fas fa-info-circle me-2"></i>Демонстраційна версія
+                                </h4>
+                                <p>Це демо версія додатку Car Manager з демонстраційними даними. Всі функції працюють локально без сервера.</p>
+                                <hr>
+                                <p class="mb-0">
+                                    <strong>Для повної версії з базою даних:</strong><br>
+                                    1. Встановіть Python<br>
+                                    2. Запустіть <code>python database/init_db.py</code><br>
+                                    3. Запустіть <code>python run_with_db.py</code>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Stats Cards -->
+                    <div class="row mb-4">
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Загальний пробіг</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">125,000 км</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-road fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                Витрати цього місяця</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">8,500 ₴</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-info shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                                Середня витрата палива</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">8.2 л/100км</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-tint fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                Нагадування</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">3</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-bell fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Demo Data -->
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Останні витрати</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Дата</th>
+                                                    <th>Тип</th>
+                                                    <th>Сума</th>
+                                                    <th>Авто</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>2024-01-15</td>
+                                                    <td><span class="badge badge-info">Паливо</span></td>
+                                                    <td>1,200 ₴</td>
+                                                    <td>Toyota Camry</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2024-01-14</td>
+                                                    <td><span class="badge badge-warning">ТО</span></td>
+                                                    <td>2,500 ₴</td>
+                                                    <td>Honda Civic</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2024-01-13</td>
+                                                    <td><span class="badge badge-success">Страховка</span></td>
+                                                    <td>5,000 ₴</td>
+                                                    <td>BMW X5</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2024-01-12</td>
+                                                    <td><span class="badge badge-danger">Ремонт</span></td>
+                                                    <td>3,200 ₴</td>
+                                                    <td>Volkswagen Golf</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2024-01-11</td>
+                                                    <td><span class="badge badge-info">Паливо</span></td>
+                                                    <td>980 ₴</td>
+                                                    <td>Audi A4</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Нагадування</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="reminder-item reminder-urgent">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <strong>ТО</strong>
+                                                <br>
+                                                <small class="text-muted">Toyota Camry потребує технічного обслуговування</small>
+                                            </div>
+                                            <small class="text-muted">2024-01-20</small>
+                                        </div>
+                                    </div>
+                                    <div class="reminder-item">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <strong>Страховка</strong>
+                                                <br>
+                                                <small class="text-muted">Honda Civic - оновлення страховки</small>
+                                            </div>
+                                            <small class="text-muted">2024-01-25</small>
+                                        </div>
+                                    </div>
+                                    <div class="reminder-item">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <strong>Заміна масла</strong>
+                                                <br>
+                                                <small class="text-muted">BMW X5 - час заміни мастила</small>
+                                            </div>
+                                            <small class="text-muted">2024-01-30</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Features Overview -->
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <div class="card shadow">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Функції додатку</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-4 mb-3">
+                                            <div class="d-flex align-items-center">
+                                                <i class="fas fa-car fa-2x text-primary me-3"></i>
+                                                <div>
+                                                    <h6>Управління авто</h6>
+                                                    <small class="text-muted">Додавання, редагування, видалення автомобілів</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <div class="d-flex align-items-center">
+                                                <i class="fas fa-gas-pump fa-2x text-success me-3"></i>
+                                                <div>
+                                                    <h6>Журнал палива</h6>
+                                                    <small class="text-muted">Відстеження заправок та витрати палива</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <div class="d-flex align-items-center">
+                                                <i class="fas fa-wrench fa-2x text-warning me-3"></i>
+                                                <div>
+                                                    <h6>Технічне обслуговування</h6>
+                                                    <small class="text-muted">Планування та відстеження ТО</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <div class="d-flex align-items-center">
+                                                <i class="fas fa-chart-line fa-2x text-info me-3"></i>
+                                                <div>
+                                                    <h6>Аналіз витрат</h6>
+                                                    <small class="text-muted">Статистика та графіки витрат</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <div class="d-flex align-items-center">
+                                                <i class="fas fa-map-marker-alt fa-2x text-danger me-3"></i>
+                                                <div>
+                                                    <h6>Автосервіси</h6>
+                                                    <small class="text-muted">База контактів сервісних центрів</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <div class="d-flex align-items-center">
+                                                <i class="fas fa-route fa-2x text-secondary me-3"></i>
+                                                <div>
+                                                    <h6>Планувальник поїздок</h6>
+                                                    <small class="text-muted">Розрахунок вартості поїздок</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Simple navigation
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all links
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                
+                // Add active class to clicked link
+                this.classList.add('active');
+                
+                // Show notification
+                const section = this.getAttribute('href').substring(1);
+                if (section !== 'dashboard') {
+                    alert(`Перехід до розділу: ${this.textContent.trim()}`);
+                }
+            });
+        });
+        
+        // Add some interactivity
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-2px)';
+                this.style.transition = 'transform 0.3s ease';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>

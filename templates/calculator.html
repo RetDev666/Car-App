@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}Калькулятор витрат - Car Manager{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Калькулятор вартості утримання</h1>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Розрахунок витрат</h6>
+            </div>
+            <div class="card-body">
+                <form id="costCalculator">
+                    <div class="mb-3">
+                        <label for="calcMileage" class="form-label">Пробіг за рік (км)</label>
+                        <input type="number" class="form-control" id="calcMileage" value="15000">
+                    </div>
+                    <div class="mb-3">
+                        <label for="calcFuelConsumption" class="form-label">Витрата палива (л/100км)</label>
+                        <input type="number" class="form-control" id="calcFuelConsumption" value="8" step="0.1">
+                    </div>
+                    <div class="mb-3">
+                        <label for="calcFuelPrice" class="form-label">Ціна палива (₴/л)</label>
+                        <input type="number" class="form-control" id="calcFuelPrice" value="50" step="0.01">
+                    </div>
+                    <div class="mb-3">
+                        <label for="calcInsurance" class="form-label">Страховка за рік (₴)</label>
+                        <input type="number" class="form-control" id="calcInsurance" value="5000">
+                    </div>
+                    <div class="mb-3">
+                        <label for="calcMaintenance" class="form-label">ТО за рік (₴)</label>
+                        <input type="number" class="form-control" id="calcMaintenance" value="3000">
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="calculateTotalCost()">Розрахувати</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Результати розрахунку</h6>
+            </div>
+            <div class="card-body">
+                <div id="costResults">
+                    <div class="row mb-2">
+                        <div class="col-6">Паливо:</div>
+                        <div class="col-6 text-end" id="fuelCost">0 ₴</div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-6">Страховка:</div>
+                        <div class="col-6 text-end" id="insuranceCost">0 ₴</div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-6">ТО:</div>
+                        <div class="col-6 text-end" id="maintenanceCost">0 ₴</div>
+                    </div>
+                    <hr>
+                    <div class="row mb-2">
+                        <div class="col-6"><strong>Загалом за рік:</strong></div>
+                        <div class="col-6 text-end"><strong id="totalCost">0 ₴</strong></div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-6">За місяць:</div>
+                        <div class="col-6 text-end" id="monthlyCost">0 ₴</div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-6">За км:</div>
+                        <div class="col-6 text-end" id="perKmCost">0 ₴</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/calculator.js') }}"></script>
+{% endblock %}
+

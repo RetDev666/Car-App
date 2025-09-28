@@ -1,0 +1,52 @@
+<!-- Add Maintenance Modal -->
+<div class="modal fade" id="addMaintenanceModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Додати ТО</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addMaintenanceForm">
+                    <div class="mb-3">
+                        <label for="maintenanceVehicle" class="form-label">Авто</label>
+                        <select class="form-control" id="maintenanceVehicle" required>
+                            <option value="">Оберіть авто</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="maintenanceDate" class="form-label">Дата</label>
+                        <input type="date" class="form-control" id="maintenanceDate" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="maintenanceType" class="form-label">Тип робіт</label>
+                        <select class="form-control" id="maintenanceType" required>
+                            <option value="">Оберіть тип</option>
+                            <option value="oil_change">Заміна мастила</option>
+                            <option value="filter_change">Заміна фільтрів</option>
+                            <option value="brake_service">Обслуговування гальм</option>
+                            <option value="engine_service">Обслуговування двигуна</option>
+                            <option value="other">Інше</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="maintenanceMileage" class="form-label">Пробіг (км)</label>
+                        <input type="number" class="form-control" id="maintenanceMileage" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="maintenanceCost" class="form-label">Вартість (₴)</label>
+                        <input type="number" class="form-control" id="maintenanceCost" step="0.01" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="maintenanceDescription" class="form-label">Опис</label>
+                        <textarea class="form-control" id="maintenanceDescription" rows="3"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Скасувати</button>
+                <button type="button" class="btn btn-primary" onclick="addMaintenance()">Додати</button>
+            </div>
+        </div>
+    </div>
+</div>

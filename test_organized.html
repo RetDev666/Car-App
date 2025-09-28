@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Manager - Організована версія</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="static/css/main.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-primary" href="#">
+                <i class="fas fa-car me-2"></i>Car Manager
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="dashboard.html">Головна</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="vehicles.html">Мої авто</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="expenses.html">Витрати</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="maintenance.html">ТО</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="services.html">Сервіси</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="trips.html">Поїздки</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 col-lg-2 bg-light sidebar">
+                <div class="position-sticky pt-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="dashboard.html">
+                                <i class="fas fa-tachometer-alt me-2"></i>Панель управління
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="vehicles.html">
+                                <i class="fas fa-car me-2"></i>Мої авто
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="fuel_log.html">
+                                <i class="fas fa-gas-pump me-2"></i>Журнал палива
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="maintenance.html">
+                                <i class="fas fa-wrench me-2"></i>Технічне обслуговування
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="expenses.html">
+                                <i class="fas fa-chart-line me-2"></i>Витрати
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="services.html">
+                                <i class="fas fa-map-marker-alt me-2"></i>Автосервіси
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="trips.html">
+                                <i class="fas fa-route me-2"></i>Планувальник поїздок
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="calculator.html">
+                                <i class="fas fa-calculator me-2"></i>Калькулятор витрат
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="col-md-9 col-lg-10 main-content">
+                <div class="content-section">
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2">Організована структура Car Manager</h1>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Структура проекту</h6>
+                                </div>
+                                <div class="card-body">
+                                    <h5>📁 Організація файлів:</h5>
+                                    <ul>
+                                        <li><strong>templates/</strong> - HTML сторінки
+                                            <ul>
+                                                <li>base.html - базовий шаблон</li>
+                                                <li>dashboard.html - головна сторінка</li>
+                                                <li>vehicles.html - сторінка автомобілів</li>
+                                                <li>fuel_log.html - журнал палива</li>
+                                                <li>maintenance.html - технічне обслуговування</li>
+                                                <li>expenses.html - витрати</li>
+                                                <li>services.html - автосервіси</li>
+                                                <li>trips.html - поїздки</li>
+                                                <li>calculator.html - калькулятор</li>
+                                                <li>modals/ - модальні вікна</li>
+                                            </ul>
+                                        </li>
+                                        <li><strong>static/css/</strong> - стилі
+                                            <ul>
+                                                <li>main.css - основний CSS</li>
+                                                <li>components/ - компоненти CSS</li>
+                                            </ul>
+                                        </li>
+                                        <li><strong>static/js/</strong> - JavaScript
+                                            <ul>
+                                                <li>api.js - API функції</li>
+                                                <li>utils.js - утиліти</li>
+                                                <li>dashboard.js - функціонал дашборду</li>
+                                                <li>vehicles.js - функціонал автомобілів</li>
+                                                <li>fuel_log.js - журнал палива</li>
+                                                <li>maintenance.js - ТО</li>
+                                                <li>expenses.js - витрати</li>
+                                                <li>services.js - сервіси</li>
+                                                <li>trips.js - поїздки</li>
+                                                <li>calculator.js - калькулятор</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+
+                                    <h5 class="mt-4">🚀 Переваги організації:</h5>
+                                    <ul>
+                                        <li>✅ Окремі сторінки для кожної секції</li>
+                                        <li>✅ Модульна структура JavaScript</li>
+                                        <li>✅ Компонентний підхід до CSS</li>
+                                        <li>✅ Легке підтримання та розширення</li>
+                                        <li>✅ Чітке розділення відповідальності</li>
+                                    </ul>
+
+                                    <div class="mt-4">
+                                        <h6>🔗 Навігація по сторінках:</h6>
+                                        <div class="d-flex flex-wrap gap-2">
+                                            <a href="dashboard.html" class="btn btn-primary">Дашборд</a>
+                                            <a href="vehicles.html" class="btn btn-outline-primary">Автомобілі</a>
+                                            <a href="fuel_log.html" class="btn btn-outline-primary">Журнал палива</a>
+                                            <a href="maintenance.html" class="btn btn-outline-primary">ТО</a>
+                                            <a href="expenses.html" class="btn btn-outline-primary">Витрати</a>
+                                            <a href="services.html" class="btn btn-outline-primary">Сервіси</a>
+                                            <a href="trips.html" class="btn btn-outline-primary">Поїздки</a>
+                                            <a href="calculator.html" class="btn btn-outline-primary">Калькулятор</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="static/js/api.js"></script>
+    <script src="static/js/utils.js"></script>
+</body>
+</html>
+

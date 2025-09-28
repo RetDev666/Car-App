@@ -1,0 +1,45 @@
+<!-- Add Trip Modal -->
+<div class="modal fade" id="addTripModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Планувати поїздку</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addTripForm">
+                    <div class="mb-3">
+                        <label for="tripVehicle" class="form-label">Авто</label>
+                        <select class="form-control" id="tripVehicle" required>
+                            <option value="">Оберіть авто</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="tripDate" class="form-label">Дата поїздки</label>
+                        <input type="date" class="form-control" id="tripDate" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="tripFrom" class="form-label">Звідки</label>
+                        <input type="text" class="form-control" id="tripFrom" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="tripTo" class="form-label">Куди</label>
+                        <input type="text" class="form-control" id="tripTo" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="tripDistance" class="form-label">Відстань (км)</label>
+                        <input type="number" class="form-control" id="tripDistance" step="0.1" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="tripFuelPrice" class="form-label">Ціна палива (₴/л)</label>
+                        <input type="number" class="form-control" id="tripFuelPrice" step="0.01" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Скасувати</button>
+                <button type="button" class="btn btn-primary" onclick="addTrip()">Додати</button>
+            </div>
+        </div>
+    </div>
+</div>

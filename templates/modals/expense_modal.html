@@ -1,0 +1,48 @@
+<!-- Add Expense Modal -->
+<div class="modal fade" id="addExpenseModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Додати витрату</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addExpenseForm">
+                    <div class="mb-3">
+                        <label for="expenseVehicle" class="form-label">Авто</label>
+                        <select class="form-control" id="expenseVehicle" required>
+                            <option value="">Оберіть авто</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="expenseDate" class="form-label">Дата</label>
+                        <input type="date" class="form-control" id="expenseDate" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="expenseType" class="form-label">Тип витрати</label>
+                        <select class="form-control" id="expenseType" required>
+                            <option value="">Оберіть тип</option>
+                            <option value="fuel">Паливо</option>
+                            <option value="maintenance">ТО</option>
+                            <option value="insurance">Страховка</option>
+                            <option value="repair">Ремонт</option>
+                            <option value="other">Інше</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="expenseDescription" class="form-label">Опис</label>
+                        <input type="text" class="form-control" id="expenseDescription" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="expenseAmount" class="form-label">Сума (₴)</label>
+                        <input type="number" class="form-control" id="expenseAmount" step="0.01" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Скасувати</button>
+                <button type="button" class="btn btn-primary" onclick="addExpense()">Додати</button>
+            </div>
+        </div>
+    </div>
+</div>

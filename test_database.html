@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Manager - Тест бази даних</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .test-result { margin: 10px 0; padding: 10px; border-radius: 5px; }
+        .test-success { background-color: #d4edda; border: 1px solid #c3e6cb; color: #155724; }
+        .test-error { background-color: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; }
+        .test-warning { background-color: #fff3cd; border: 1px solid #ffeaa7; color: #856404; }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-center mb-4">
+                    <i class="fas fa-database me-2"></i>Тест бази даних Car Manager
+                </h1>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">🧪 Результати тестування</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="testResults">
+                            <div class="text-center">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Завантаження...</span>
+                                </div>
+                                <p class="mt-2">Запуск тестів...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">📊 Статистика бази даних</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="databaseStats">
+                            <p class="text-muted">Завантаження статистики...</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">🚀 Інструкції по запуску</h5>
+                    </div>
+                    <div class="card-body">
+                        <h6>1. Ініціалізація бази даних:</h6>
+                        <pre><code>python database/init_db.py</code></pre>
+                        
+                        <h6>2. Запуск Flask додатку:</h6>
+                        <pre><code>python run_with_db.py</code></pre>
+                        
+                        <h6>3. Альтернативно (Windows):</h6>
+                        <pre><code>start_with_db.bat</code></pre>
+                        
+                        <h6>4. Тестування бази даних:</h6>
+                        <pre><code>python test_database.py</code></pre>
+                        
+                        <div class="alert alert-info mt-3">
+                            <i class="fas fa-info-circle me-2"></i>
+                            <strong>Примітка:</strong> Переконайтеся, що Python встановлений і доступний в PATH.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Test database functionality
+        async function testDatabase() {
+            const resultsDiv = document.getElementById('testResults');
+            const statsDiv = document.getElementById('databaseStats');
+            
+            try {
+                // Test API endpoints
+                const tests = [
+                    { name: 'Автомобілі', url: '/api/vehicles' },
+                    { name: 'Витрати', url: '/api/expenses' },
+                    { name: 'Журнал палива', url: '/api/fuel-logs' },
+                    { name: 'ТО', url: '/api/maintenance' },
+                    { name: 'Сервіси', url: '/api/services' },
+                    { name: 'Поїздки', url: '/api/trips' },
+                    { name: 'Статистика', url: '/api/stats' }
+                ];
+                
+                let results = '';
+                let totalTests = 0;
+                let passedTests = 0;
+                
+                for (const test of tests) {
+                    totalTests++;
+                    try {
+                        const response = await fetch(test.url);
+                        if (response.ok) {
+                            const data = await response.json();
+                            results += `
+                                <div class="test-result test-success">
+                                    <i class="fas fa-check-circle me-2"></i>
+                                    <strong>${test.name}:</strong> ✅ Успішно (${Array.isArray(data) ? data.length : 'OK'} записів)
+                                </div>
+                            `;
+                            passedTests++;
+                        } else {
+                            results += `
+                                <div class="test-result test-error">
+                                    <i class="fas fa-times-circle me-2"></i>
+                                    <strong>${test.name}:</strong> ❌ Помилка (HTTP ${response.status})
+                                </div>
+                            `;
+                        }
+                    } catch (error) {
+                        results += `
+                            <div class="test-result test-warning">
+                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                <strong>${test.name}:</strong> ⚠️ Сервер не запущений
+                            </div>
+                        `;
+                    }
+                }
+                
+                // Show results
+                resultsDiv.innerHTML = `
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>Результати тестування:</h6>
+                            ${results}
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Підсумок:</h6>
+                            <div class="test-result ${passedTests === totalTests ? 'test-success' : 'test-warning'}">
+                                <strong>Пройдено тестів:</strong> ${passedTests}/${totalTests}
+                            </div>
+                            ${passedTests === totalTests ? 
+                                '<div class="alert alert-success mt-2"><i class="fas fa-check-circle me-2"></i>Всі тести пройшли успішно!</div>' :
+                                '<div class="alert alert-warning mt-2"><i class="fas fa-exclamation-triangle me-2"></i>Деякі тести не пройшли. Перевірте, чи запущений сервер.</div>'
+                            }
+                        </div>
+                    </div>
+                `;
+                
+                // Load database stats
+                try {
+                    const statsResponse = await fetch('/api/stats');
+                    if (statsResponse.ok) {
+                        const stats = await statsResponse.json();
+                        statsDiv.innerHTML = `
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="text-center">
+                                        <h3 class="text-primary">${stats.vehicles_count || 0}</h3>
+                                        <p class="text-muted">Автомобілі</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="text-center">
+                                        <h3 class="text-success">${stats.expenses_count || 0}</h3>
+                                        <p class="text-muted">Витрати</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="text-center">
+                                        <h3 class="text-info">${stats.fuel_logs_count || 0}</h3>
+                                        <p class="text-muted">Заправки</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="text-center">
+                                        <h3 class="text-warning">${stats.maintenance_count || 0}</h3>
+                                        <p class="text-muted">ТО</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12">
+                                    <h6>Загальні витрати:</h6>
+                                    <p><strong>Всього:</strong> ${(stats.total_expenses || 0).toLocaleString()} ₴</p>
+                                    <p><strong>Цього місяця:</strong> ${(stats.monthly_expenses || 0).toLocaleString()} ₴</p>
+                                </div>
+                            </div>
+                        `;
+                    } else {
+                        statsDiv.innerHTML = '<p class="text-muted">Не вдалося завантажити статистику</p>';
+                    }
+                } catch (error) {
+                    statsDiv.innerHTML = '<p class="text-muted">Сервер не запущений</p>';
+                }
+                
+            } catch (error) {
+                resultsDiv.innerHTML = `
+                    <div class="test-result test-error">
+                        <i class="fas fa-times-circle me-2"></i>
+                        <strong>Помилка тестування:</strong> ${error.message}
+                    </div>
+                `;
+            }
+        }
+        
+        // Run tests when page loads
+        document.addEventListener('DOMContentLoaded', testDatabase);
+    </script>
+</body>
+</html>

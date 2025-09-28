@@ -1,0 +1,39 @@
+<!-- Add Vehicle Modal -->
+<div class="modal fade" id="addVehicleModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Додати нове авто</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addVehicleForm">
+                    <div class="mb-3">
+                        <label for="vehicleBrand" class="form-label">Марка</label>
+                        <input type="text" class="form-control" id="vehicleBrand" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="vehicleModel" class="form-label">Модель</label>
+                        <input type="text" class="form-control" id="vehicleModel" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="vehicleYear" class="form-label">Рік випуску</label>
+                        <input type="number" class="form-control" id="vehicleYear" min="1900" max="2024" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="vehiclePlate" class="form-label">Номерний знак</label>
+                        <input type="text" class="form-control" id="vehiclePlate" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="vehicleMileage" class="form-label">Поточний пробіг (км)</label>
+                        <input type="number" class="form-control" id="vehicleMileage" min="0" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Скасувати</button>
+                <button type="button" class="btn btn-primary" onclick="addVehicle()">Додати</button>
+            </div>
+        </div>
+    </div>
+</div>
