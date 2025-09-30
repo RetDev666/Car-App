@@ -1,7 +1,7 @@
 // Fuel Log functionality
 
 document.addEventListener('DOMContentLoaded', async function() {
-    await loadDataFromAPI();
+    await API.loadDataFromAPI();
     loadFuelLogData();
 });
 
@@ -39,7 +39,7 @@ async function addFuelLog() {
         return;
     }
     
-    const result = await addFuelLog({
+    const result = await API.addFuelLog({
         vehicle_id: vehicleId,
         date,
         amount,
@@ -48,6 +48,7 @@ async function addFuelLog() {
     });
     
     if (result.success) {
+        await API.loadDataFromAPI();
         loadFuelLogData();
         
         // Close modal

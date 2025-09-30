@@ -296,3 +296,19 @@ async function getStats() {
         return null;
     }
 }
+
+// Expose a namespaced API to avoid function name collisions in page scripts
+window.API = {
+    loadDataFromAPI,
+    addVehicle,
+    updateVehicle,
+    deleteVehicle,
+    addFuelLog,
+    addMaintenance,
+    addExpense,
+    addService,
+    updateService,
+    deleteService,
+    addTrip,
+    getStats
+};

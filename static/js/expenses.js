@@ -1,8 +1,9 @@
 // Expenses functionality
 
 document.addEventListener('DOMContentLoaded', async function() {
-    await loadDataFromAPI();
+    await API.loadDataFromAPI();
     loadExpensesData();
+    if (typeof initializeCharts === 'function') initializeCharts();
 });
 
 function loadExpensesData() {
@@ -38,7 +39,7 @@ async function addExpense() {
         return;
     }
     
-    const result = await addExpense({
+    const result = await API.addExpense({
         vehicle_id: vehicleId,
         date,
         type,
@@ -47,6 +48,7 @@ async function addExpense() {
     });
     
     if (result.success) {
+        await API.loadDataFromAPI();
         loadExpensesData();
         
         // Close modal

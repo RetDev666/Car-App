@@ -14,8 +14,8 @@
     --warning-color: #f6c23e;
     --danger-color: #e74a3b;
     --secondary-color: #858796;
-    --light-color: #f8f9fc;
-    --dark-color: #5a5c69;
+    --light-color: #ffffff;
+    --dark-color: #0f172a;
     --gray-100: #f8f9fc;
     --gray-200: #e3e6f0;
     --gray-300: #d1d3e2;
@@ -25,11 +25,38 @@
     --gray-700: #5a5c69;
     --gray-800: #3a3b45;
     --gray-900: #23272b;
+
+    --card-bg: #ffffff;
+    --card-border: rgba(0,0,0,0.06);
+    --text-color: #1f2937;
+    --muted-text: #6b7280;
+    --elev-1: 0 4px 12px rgba(0,0,0,0.06);
+}
+
+[data-theme="dark"] {
+    --primary-color: #6ea8fe;
+    --light-color: #0b1220;
+    --dark-color: #e5e7eb;
+    --gray-100: #0b1220;
+    --gray-200: #111827;
+    --gray-300: #1f2937;
+    --gray-400: #374151;
+    --gray-500: #4b5563;
+    --gray-600: #6b7280;
+    --gray-700: #9ca3af;
+    --gray-800: #d1d5db;
+    --gray-900: #f3f4f6;
+    --card-bg: rgba(17, 24, 39, 0.8);
+    --card-border: rgba(255,255,255,0.08);
+    --text-color: #e5e7eb;
+    --muted-text: #9ca3af;
+    --elev-1: 0 8px 24px rgba(0,0,0,0.4);
 }
 
 body {
     font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
     background-color: var(--gray-100);
+    color: var(--text-color);
 }
 
 /* Main Content */
@@ -43,6 +70,27 @@ body {
     padding: 1.5rem;
 }
 
+/* Modern Cards */
+.card {
+    border: 1px solid var(--card-border);
+    background: var(--card-bg);
+    border-radius: 16px;
+    box-shadow: var(--elev-1);
+}
+.card .card-header {
+    background: transparent;
+    border-bottom: 1px solid var(--card-border);
+}
+.card .card-body {
+    color: var(--text-color);
+}
+
+/* Mobile spacing & headings */
+h1, .h1, h2, .h2, h3, .h3 { color: var(--text-color); }
+@media (max-width: 576px) {
+    .border-bottom { border-color: var(--card-border) !important; }
+}
+
 /* Tables */
 .table {
     margin-bottom: 0;
@@ -51,8 +99,8 @@ body {
 .table th {
     border-top: none;
     font-weight: 600;
-    color: var(--gray-800);
-    background-color: #f8f9fc;
+    color: var(--text-color);
+    background-color: rgba(0,0,0,0.02);
 }
 
 .table td {

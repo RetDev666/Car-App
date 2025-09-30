@@ -1,7 +1,7 @@
 // Trips functionality
 
 document.addEventListener('DOMContentLoaded', async function() {
-    await loadDataFromAPI();
+    await API.loadDataFromAPI();
     loadTripsData();
 });
 
@@ -38,7 +38,7 @@ async function addTrip() {
         return;
     }
     
-    const result = await addTrip({
+    const result = await API.addTrip({
         vehicle_id: vehicleId,
         date,
         from_location: from,

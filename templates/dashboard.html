@@ -3,80 +3,58 @@
 {% block title %}Панель управління - Car Manager{% endblock %}
 
 {% block content %}
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Панель управління</h1>
-    <div class="btn-toolbar mb-2 mb-md-0">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addVehicleModal">
-            <i class="fas fa-plus me-2"></i>Додати авто
-        </button>
-    </div>
+<div class="d-flex justify-content-between align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h4 m-0">Панель управління</h1>
+    <button type="button" class="btn btn-primary d-none d-md-inline-flex" data-bs-toggle="modal" data-bs-target="#addVehicleModal">
+        <i class="fas fa-plus me-2"></i>Додати авто
+    </button>
 </div>
 
 <!-- Stats Cards -->
 <div class="row mb-4">
     <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-primary shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                            Загальний пробіг</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="totalMileage">0 км</div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-road fa-2x text-gray-300"></i>
-                    </div>
+        <div class="card h-100">
+            <div class="stat-card">
+                <div class="stat-icon primary"><i class="fas fa-road"></i></div>
+                <div class="stat-body">
+                    <p class="stat-title">Загальний пробіг</p>
+                    <p class="stat-value" id="totalMileage">0 км</p>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-success shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                            Витрати цього місяця</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="monthlyExpenses">0 ₴</div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                    </div>
+        <div class="card h-100">
+            <div class="stat-card">
+                <div class="stat-icon success"><i class="fas fa-hryvnia"></i></div>
+                <div class="stat-body">
+                    <p class="stat-title">Витрати цього місяця</p>
+                    <p class="stat-value" id="monthlyExpenses">0 ₴</p>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-info shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                            Середня витрата палива</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="avgFuelConsumption">0 л/100км</div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-tint fa-2x text-gray-300"></i>
-                    </div>
+        <div class="card h-100">
+            <div class="stat-card">
+                <div class="stat-icon info"><i class="fas fa-gas-pump"></i></div>
+                <div class="stat-body">
+                    <p class="stat-title">Середня витрата палива</p>
+                    <p class="stat-value" id="avgFuelConsumption">0 л/100км</p>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-warning shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                            Нагадування</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="remindersCount">0</div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-bell fa-2x text-gray-300"></i>
-                    </div>
+        <div class="card h-100">
+            <div class="stat-card">
+                <div class="stat-icon warning"><i class="fas fa-bell"></i></div>
+                <div class="stat-body">
+                    <p class="stat-title">Нагадування</p>
+                    <p class="stat-value" id="remindersCount">0</p>
                 </div>
             </div>
         </div>

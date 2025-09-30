@@ -1,7 +1,7 @@
 // Vehicles functionality
 
 document.addEventListener('DOMContentLoaded', async function() {
-    await loadDataFromAPI();
+    await API.loadDataFromAPI();
     loadVehiclesData();
 });
 
@@ -66,7 +66,7 @@ async function addVehicle() {
         return;
     }
     
-    const result = await addVehicle({
+    const result = await API.addVehicle({
         brand,
         model,
         year,
@@ -118,7 +118,7 @@ async function updateVehicle(id) {
     const plate = document.getElementById('vehiclePlate').value;
     const mileage = parseInt(document.getElementById('vehicleMileage').value);
     
-    const result = await updateVehicle(id, {
+    const result = await API.updateVehicle(id, {
         brand,
         model,
         year,
@@ -148,7 +148,7 @@ async function updateVehicle(id) {
 async function deleteVehicle(id) {
     if (!confirm('Ви впевнені, що хочете видалити цей автомобіль?')) return;
     
-    const result = await deleteVehicle(id);
+    const result = await API.deleteVehicle(id);
     
     if (result.success) {
         loadVehiclesData();

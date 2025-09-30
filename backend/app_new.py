@@ -4,11 +4,18 @@ import os
 from datetime import datetime, timedelta
 import json
 
-app = Flask(__name__)
+# Resolve project root so Flask can find templates/static located at repo root
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
-# Database configuration
-DATABASE = 'car_manager.db'
-SCHEMA_FILE = 'database/schema.sql'
+app = Flask(
+    __name__,
+    template_folder=os.path.join(PROJECT_ROOT, 'templates'),
+    static_folder=os.path.join(PROJECT_ROOT, 'static'),
+)
+
+# Database configuration (use absolute paths relative to project root)
+DATABASE = os.path.join(PROJECT_ROOT, 'car_manager.db')
+SCHEMA_FILE = os.path.join(PROJECT_ROOT, 'database', 'schema.sql')
 
 def get_db_connection():
     """Get database connection"""
