@@ -203,3 +203,61 @@ function initializeApp() {
     initializeDateInputs();
     initializeCharts();
 }
+
+// Safe vehicle form submitter that dispatches to page-specific add/update
+function submitVehicleForm() {
+    const addBtn = document.querySelector('#addVehicleModal .btn-primary');
+    if (!addBtn) return;
+    // If page has vehicles.js handlers wired (add/update), they updated the onclick already.
+    // Otherwise, fall back to calling API directly with current form values (dashboard/index).
+    if (typeof addVehicle === 'function') {
+        try { addVehicle(); return; } catch (e) {}
+    }
+    // Fallback direct API call
+    (async function() {
+        const brand = document.getElementById('vehicleBrand').value;
+        const model = document.getElementById('vehicleModel').value;
+        const year = parseInt(document.getElementById('vehicleYear').value);
+        const plate = document.getElementById('vehiclePlate').value;
+        const mileage = parseInt(document.getElementById('vehicleMileage').value);
+        if (!brand || !model || !year || !plate || !mileage) { alert('Будь ласка, заповніть всі поля'); return; }
+        const result = await (window.API ? API.addVehicle({ brand, model, year, plate, mileage }) : Promise.resolve({ success: false }));
+        if (result && result.success) {
+            if (window.API && typeof API.loadDataFromAPI === 'function') await API.loadDataFromAPI();
+            const modal = bootstrap.Modal.getInstance(document.getElementById('addVehicleModal')); if (modal) modal.hide();
+            document.getElementById('addVehicleForm').reset();
+            showNotification('Автомобіль успішно додано', 'success');
+        } else {
+            showNotification((result && result.error) || 'Помилка додавання автомобіля', 'danger');
+        }
+    })();
+}
+
+// Backward compatibility: if a page calls global addVehicle() from HTML, bind it to API-based submitter
+if (typeof window.addVehicle !== 'function') {
+    window.addVehicle = submitVehicleForm;
+}
+
+// Expense form submitter and back-compat binding
+function submitExpenseForm() {
+    (async function() {
+        const vehicleId = parseInt(document.getElementById('expenseVehicle').value);
+        const date = document.getElementById('expenseDate').value;
+        const type = document.getElementById('expenseType').value;
+        const description = document.getElementById('expenseDescription').value;
+        const amount = parseFloat(document.getElementById('expenseAmount').value);
+        if (!vehicleId || !date || !type || !description || !amount) { alert('Будь ласка, заповніть всі поля'); return; }
+        const result = await (window.API ? API.addExpense({ vehicle_id: vehicleId, date, type, description, amount }) : Promise.resolve({ success: false }));
+        if (result && result.success) {
+            if (window.API && typeof API.loadDataFromAPI === 'function') await API.loadDataFromAPI();
+            const modal = bootstrap.Modal.getInstance(document.getElementById('addExpenseModal')); if (modal) modal.hide();
+            document.getElementById('addExpenseForm').reset();
+            showNotification('Витрату успішно додано', 'success');
+        } else {
+            showNotification((result && result.error) || 'Помилка додавання витрати', 'danger');
+        }
+    })();
+}
+if (typeof window.addExpense !== 'function') {
+    window.addExpense = submitExpenseForm;
+}

@@ -1,7 +1,7 @@
 // Services functionality
 
 document.addEventListener('DOMContentLoaded', async function() {
-    await loadDataFromAPI();
+    await API.loadDataFromAPI();
     loadServicesData();
 });
 
@@ -73,7 +73,7 @@ async function addService() {
         return;
     }
     
-    const result = await addService({
+    const result = await API.addService({
         name,
         address,
         phone,
@@ -82,6 +82,7 @@ async function addService() {
     });
     
     if (result.success) {
+        await API.loadDataFromAPI();
         loadServicesData();
         
         // Close modal
@@ -125,7 +126,7 @@ async function updateService(id) {
     const rating = parseInt(document.getElementById('serviceRating').value);
     const description = document.getElementById('serviceDescription').value;
     
-    const result = await updateService(id, {
+    const result = await API.updateService(id, {
         name,
         address,
         phone,
@@ -155,7 +156,7 @@ async function updateService(id) {
 async function deleteService(id) {
     if (!confirm('Ви впевнені, що хочете видалити цей автосервіс?')) return;
     
-    const result = await deleteService(id);
+    const result = await API.deleteService(id);
     
     if (result.success) {
         loadServicesData();

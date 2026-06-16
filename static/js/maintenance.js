@@ -1,7 +1,7 @@
 // Maintenance functionality
 
 document.addEventListener('DOMContentLoaded', async function() {
-    await loadDataFromAPI();
+    await API.loadDataFromAPI();
     loadMaintenanceData();
 });
 
@@ -91,7 +91,7 @@ async function addMaintenance() {
         return;
     }
     
-    const result = await addMaintenance({
+    const result = await API.addMaintenance({
         vehicle_id: vehicleId,
         date,
         type,
@@ -101,6 +101,7 @@ async function addMaintenance() {
     });
     
     if (result.success) {
+        await API.loadDataFromAPI();
         loadMaintenanceData();
         
         // Close modal

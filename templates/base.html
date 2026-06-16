@@ -10,36 +10,21 @@
     {% block extra_css %}{% endblock %}
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
-        <div class="container">
-            <a class="navbar-brand fw-bold text-primary" href="{{ url_for('index') }}">
+    <!-- Top App Bar (mobile-friendly) -->
+    <nav class="navbar navbar-light bg-white shadow-sm top-app-bar">
+        <div class="container d-flex align-items-center justify-content-between">
+            <a class="navbar-brand fw-bold text-primary m-0" href="{{ url_for('index') }}">
                 <i class="fas fa-car me-2"></i>Car Manager
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.endpoint == 'index' %}active{% endif %}" href="{{ url_for('index') }}">Головна</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.endpoint == 'vehicles' %}active{% endif %}" href="{{ url_for('vehicles') }}">Мої авто</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.endpoint == 'expenses' %}active{% endif %}" href="{{ url_for('expenses') }}">Витрати</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.endpoint == 'maintenance' %}active{% endif %}" href="{{ url_for('maintenance') }}">ТО</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.endpoint == 'services' %}active{% endif %}" href="{{ url_for('services') }}">Сервіси</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.endpoint == 'trips' %}active{% endif %}" href="{{ url_for('trips') }}">Поїздки</a>
-                    </li>
-                </ul>
+            <div class="d-flex align-items-center gap-2">
+                <button id="themeToggle" class="btn btn-outline-secondary btn-sm rounded-pill">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <div class="d-flex d-md-none">
+                <a href="{{ url_for('calculator') }}" class="btn btn-primary btn-sm rounded-pill">
+                    <i class="fas fa-plus"></i>
+                </a>
+                </div>
             </div>
         </div>
     </nav>
@@ -47,8 +32,8 @@
     <!-- Main Content -->
     <div class="container-fluid">
         <div class="row">
-            <!-- Sidebar -->
-            <div class="col-md-3 col-lg-2 bg-light sidebar">
+            <!-- Sidebar (desktop) -->
+            <div class="col-md-3 col-lg-2 bg-light sidebar d-none d-md-block">
                 <div class="position-sticky pt-3">
                     <ul class="nav flex-column">
                         <li class="nav-item">
@@ -96,11 +81,35 @@
             </div>
 
             <!-- Main Content Area -->
-            <div class="col-md-9 col-lg-10 main-content">
+            <div class="col-md-9 col-lg-10 main-content pb-6">
                 {% block content %}{% endblock %}
             </div>
         </div>
     </div>
+
+    <!-- Bottom Tab Bar (mobile) -->
+    <nav class="bottom-tabbar d-md-none">
+        <a href="{{ url_for('index') }}" class="tab-item {% if request.endpoint == 'index' %}active{% endif %}">
+            <i class="fas fa-gauge"></i>
+            <span>Головна</span>
+        </a>
+        <a href="{{ url_for('vehicles') }}" class="tab-item {% if request.endpoint == 'vehicles' %}active{% endif %}">
+            <i class="fas fa-car"></i>
+            <span>Авто</span>
+        </a>
+        <a href="{{ url_for('expenses') }}" class="tab-item {% if request.endpoint == 'expenses' %}active{% endif %}">
+            <i class="fas fa-wallet"></i>
+            <span>Витрати</span>
+        </a>
+        <a href="{{ url_for('fuel_log') }}" class="tab-item {% if request.endpoint == 'fuel_log' %}active{% endif %}">
+            <i class="fas fa-gas-pump"></i>
+            <span>Паливо</span>
+        </a>
+        <a href="{{ url_for('trips') }}" class="tab-item {% if request.endpoint == 'trips' %}active{% endif %}">
+            <i class="fas fa-route"></i>
+            <span>Поїздки</span>
+        </a>
+    </nav>
 
     <!-- Modals -->
     {% include 'modals/vehicle_modal.html' %}
@@ -115,6 +124,29 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{{ url_for('static', filename='js/api.js') }}"></script>
     <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
+    <script>
+        (function() {
+            const root = document.documentElement;
+            const key = 'cm_theme';
+            const saved = localStorage.getItem(key);
+            if (saved === 'dark') root.setAttribute('data-theme', 'dark');
+            const btn = document.getElementById('themeToggle');
+            if (btn) {
+                btn.addEventListener('click', function() {
+                    const isDark = root.getAttribute('data-theme') === 'dark';
+                    if (isDark) {
+                        root.removeAttribute('data-theme');
+                        localStorage.setItem(key, 'light');
+                        this.innerHTML = '<i class="fas fa-moon"></i>';
+                    } else {
+                        root.setAttribute('data-theme', 'dark');
+                        localStorage.setItem(key, 'dark');
+                        this.innerHTML = '<i class="fas fa-sun"></i>';
+                    }
+                });
+            }
+        })();
+    </script>
     {% block extra_js %}{% endblock %}
 </body>
 </html>

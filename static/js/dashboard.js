@@ -1,7 +1,7 @@
 // Dashboard functionality
 
 document.addEventListener('DOMContentLoaded', async function() {
-    await loadDataFromAPI();
+    await API.loadDataFromAPI();
     loadDashboardData();
 });
 
@@ -136,7 +136,7 @@ async function addVehicle() {
         return;
     }
     
-    const result = await addVehicle({
+    const result = await API.addVehicle({
         brand,
         model,
         year,

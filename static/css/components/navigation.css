@@ -64,3 +64,59 @@
     color: var(--primary-color);
     font-weight: 700;
 }
+
+/* Top App Bar */
+.top-app-bar {
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+}
+
+/* Bottom Tab Bar (mobile) */
+.bottom-tabbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 64px;
+    background: rgba(255,255,255,0.9);
+    backdrop-filter: saturate(120%) blur(10px);
+    -webkit-backdrop-filter: saturate(120%) blur(10px);
+    border-top: 1px solid var(--card-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 4px;
+    z-index: 1030;
+}
+
+.bottom-tabbar .tab-item {
+    flex: 1 1 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: var(--gray-600);
+    font-size: 12px;
+    gap: 4px;
+}
+
+.bottom-tabbar .tab-item i {
+    font-size: 18px;
+}
+
+.bottom-tabbar .tab-item.active {
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+[data-theme="dark"] .bottom-tabbar {
+    background: rgba(17,24,39,0.7);
+}
+
+/* Add bottom padding so content is not hidden behind tab bar */
+.pb-6 {
+    padding-bottom: 6rem !important;
+}
