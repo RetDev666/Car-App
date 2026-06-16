@@ -1,0 +1,65 @@
+/* Button Components */
+
+/* Buttons */
+.btn {
+    border-radius: 0.35rem;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 0.25rem 0.75rem 0 rgba(58, 59, 69, 0.15);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #1cc88a 0%, #13855c 100%);
+    border: none;
+}
+
+.btn-info {
+    background: linear-gradient(135deg, #36b9cc 0%, #258391 100%);
+    border: none;
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, #f6c23e 0%, #dda20a 100%);
+    border: none;
+    color: #fff;
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, #e74a3b 0%, #c0392b 100%);
+    border: none;
+}
+
+/* Status Badges */
+.badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.25rem;
+}
+
+.badge-success {
+    background: linear-gradient(135deg, #1cc88a 0%, #13855c 100%);
+}
+
+.badge-warning {
+    background: linear-gradient(135deg, #f6c23e 0%, #dda20a 100%);
+}
+
+.badge-danger {
+    background: linear-gradient(135deg, #e74a3b 0%, #c0392b 100%);
+}
+
+.badge-info {
+    background: linear-gradient(135deg, #36b9cc 0%, #258391 100%);
+}

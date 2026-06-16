@@ -1,0 +1,21 @@
+/* Reminder Components */
+
+/* Reminders */
+.reminder-item {
+    background: linear-gradient(135deg, #f8f9fc 0%, #e3e6f0 100%);
+    border-left: 4px solid var(--warning-color);
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 0.35rem;
+    transition: all 0.3s;
+}
+
+.reminder-item:hover {
+    background: linear-gradient(135deg, #e3e6f0 0%, #d1d3e2 100%);
+    transform: translateX(5px);
+}
+
+.reminder-urgent {
+    border-left-color: var(--danger-color);
+    background: linear-gradient(135deg, #fdf2f2 0%, #fce4e4 100%);
+}
